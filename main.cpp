@@ -1,4 +1,4 @@
-﻿#include <QCoreApplication>
+#include <QCoreApplication>
 #include <QSettings>
 #include <QDebug>
 #include <QTextStream>
@@ -89,6 +89,35 @@ int main(int argc, char *argv[])
         {
             lane = "to switch .41";
         }
+		
+		else if(ip == "10.10.126.10" || ip == "10.10.125.10" || ip == "10.10.72.10")
+		{
+			lane = "to antena .10";
+		}
+		
+		else if(ip == "10.10.126.11" || ip == "10.10.125.11" || ip == "10.10.72.11")
+		{
+			lane = "to antena .11";
+		}
+		
+		else if(ip == "10.10.126.12" || ip == "10.10.125.12" || ip == "10.10.72.12")
+		{
+			lane = "to antena .12";
+		}
+		
+		else if(ip == "10.10.126.20" || ip == "10.10.125.20" || ip == "10.10.72.20")
+		{
+			lane = "to antena .20";
+		}
+		else if(ip == "10.10.126.21" || ip == "10.10.125.21" || ip == "10.10.72.21")
+		{
+			lane = "to antena .21";
+		}
+		
+		else if(ip == "10.10.126.22" || ip == "10.10.125.22" || ip == "10.10.72.22")
+		{
+			lane = "to antena .22";
+		}
 
         if(exitCode == 0)
         {
