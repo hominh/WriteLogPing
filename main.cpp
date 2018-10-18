@@ -1,4 +1,4 @@
-#include <QCoreApplication>
+﻿#include <QCoreApplication>
 #include <QSettings>
 #include <QDebug>
 #include <QTextStream>
@@ -70,6 +70,27 @@ int main(int argc, char *argv[])
         QDateTime now2 = QDateTime::currentDateTime();
         QString timestamp2 = now2.toString(QLatin1String("yyyy-MM-dd hh:mm:ss.zzz"));
         int exitCode=pingProc.execute("ping",QStringList() << "-c" << "1" << ip);
+
+        pingProc.start("ping",QStringList() << "-c" << "1" << ip);
+
+        pingProc.waitForFinished();
+
+        QString line(pingProc.readAllStandardOutput());
+
+        QString time;
+        if(line.contains("time="))
+        {
+            int startofTime = line.indexOf("time=") + 5;
+            int endofTime = line.indexOf(" ms");
+            int middleTime = endofTime - startofTime;
+            time = line.mid(startofTime,middleTime);
+
+            /*qDebug() << "startofTime: "<<startofTime;
+            qDebug() << "endofTime: "<<endofTime;
+            qDebug() << "time: "<<time;
+            qDebug() << "---endtime-----";*/
+        }
+
         QString lane;
         if(ip == "10.10.125.50" || ip == "10.10.126.50" || ip == "10.10.72.50")
         {
@@ -117,11 +138,15 @@ int main(int argc, char *argv[])
 		else if(ip == "10.10.126.22" || ip == "10.10.125.22" || ip == "10.10.72.22")
 		{
 			lane = "to antena .22";
-		}
+        }
+        else if(ip == "192.168.3.10")
+        {
+            lane = "to local";
+        }
 
         if(exitCode == 0)
         {
-            result = timestamp2+ "\t" + "PING "+lane + " OK";
+            result = timestamp2+ "\t" + "PING "+lane + " OK" + ". Time = " + time;
         }
         else
         {
